@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import pickle
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier

@@ -6,11 +6,14 @@ from flask import request, jsonify
 import ModelBuilding as mb
 import numpy as np
 import pandas as pd
+# from flask_cors import CORS
 
+# logging.getLogger('flask_cors').level = logging.DEBUG
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 app=flask.Flask(__name__)
+# CORS(app)
 
 @app.route('/welcome', methods = ['GET'])
 def welcome():
@@ -31,7 +34,9 @@ def prediction_single():
             pred = clf.predict(formRec)
             print(pred)
             #return ('Prediction Completed',200)
-            return jsonify({"Donor":int(pred)})
+            return jsonify({"isDonor":int(pred),
+                            "Profit":13-0.68,
+                            "Expense":0.68,})
 
 @app.route('/prediction/file', methods = ['POST'])
 def bulk_prediction():
