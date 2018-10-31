@@ -15,6 +15,10 @@ log.setLevel(logging.ERROR)
 app=flask.Flask(__name__)
 # CORS(app)
 
+@app.route('/', methods = ['GET'])
+def welcome():
+    return """Hello, FDM!!!"""
+
 @app.route('/welcome', methods = ['GET'])
 def welcome():
     return """Welcome to this Web Service. \
@@ -92,5 +96,5 @@ def bulk_prediction():
 if __name__ == '__main__':
     print("Excited")
     clf = mb.import_model()
-    app.run(host='0.0.0.0',port=800,debug=True, threaded=True, use_reloader=False)
-    #app.run(host='0.0.0.0',port=800)
+    #app.run(host='0.0.0.0',port=80,debug=True, threaded=True, use_reloader=False)
+    app.run(host='0.0.0.0',port=80,debug=True)
