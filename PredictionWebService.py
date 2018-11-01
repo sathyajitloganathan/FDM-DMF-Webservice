@@ -16,7 +16,7 @@ app=flask.Flask(__name__)
 # CORS(app)
 
 @app.route('/', methods = ['GET'])
-def welcome():
+def home():
     return """Hello, FDM!!!"""
 
 @app.route('/welcome', methods = ['GET'])
@@ -28,19 +28,23 @@ def welcome():
 def prediction_single():
     data = request.get_json(force = True)
     #return {'value':data['w']}
-    if "singleRecord" in data:
-        if data['singleRecord']=="True":
-            singRec = []
-            for key,value in data["attributes"].items():
-                singRec.append(value)
+    try:
+        if "singleRecord" in data:
+            if data['singleRecord']=="True":
+                singRec = []
+                for key,value in data["attributes"].items():
+                    singRec.append(value)
 
-            formRec = np.array(singRec).reshape(1,-1)
-            pred = clf.predict(formRec)
-            print(pred)
-            #return ('Prediction Completed',200)
-            return jsonify({"isDonor":int(pred),
-                            "Profit":13-0.68,
-                            "Expense":0.68,})
+                formRec = np.array(singRec).reshape(1,-1)
+                pred = clf.predict(formRec)
+                print(pred)
+                #return ('Prediction Completed',200)
+                return jsonify({"isDonor":int(pred),
+                                "Profit":13-0.68,
+                                "Expense":0.68,})
+    except Exception as e:
+        print(e)
+        return "Exception: " + str(e)
 
 @app.route('/prediction/file', methods = ['POST'])
 def bulk_prediction():
@@ -96,5 +100,5 @@ def bulk_prediction():
 if __name__ == '__main__':
     print("Excited")
     clf = mb.import_model()
-    #app.run(host='0.0.0.0',port=80,debug=True, threaded=True, use_reloader=False)
+    # app.run(host='0.0.0.0',port=80,debug=True, threaded=True, use_reloader=False)
     app.run(host='0.0.0.0',port=80,debug=True)

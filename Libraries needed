@@ -1,0 +1,8 @@
+pip install numpy
+pip install pandas
+pip install flask
+pip install requests
+pip install scikit-learn
+
+$ pip install Flask
+$ FLASK_APP=hello.py flask run
