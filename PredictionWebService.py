@@ -15,14 +15,15 @@ log.setLevel(logging.ERROR)
 app=flask.Flask(__name__)
 # CORS(app)
 
+clf = mb.import_model()
+
 @app.route('/', methods = ['GET'])
 def home():
     return """Hello, FDM!!!"""
 
 @app.route('/welcome', methods = ['GET'])
 def welcome():
-    return """Welcome to this Web Service. \
-    Utilizable for  Direct Mail Fundraising Donor identification prediction based on the input features you send."""
+    return """Welcome to this Web Service. Utilizable for  Direct Mail Fundraising Donor identification prediction based on the input features you send."""
 
 @app.route('/prediction/single', methods = ['POST'])
 def prediction_single():
@@ -48,7 +49,6 @@ def prediction_single():
 
 @app.route('/prediction/file', methods = ['POST'])
 def bulk_prediction():
-
     #return(data['withHeader'])
     try:
         if request.form['filetype'] == 'csv':
@@ -99,6 +99,6 @@ def bulk_prediction():
 
 if __name__ == '__main__':
     print("Excited")
-    clf = mb.import_model()
-    # app.run(host='0.0.0.0',port=80,debug=True, threaded=True, use_reloader=False)
-    app.run(host='0.0.0.0',port=80,debug=True)
+    # clf = mb.import_model()
+    # app.run(host='0.0.0.0',port=800,debug=True, threaded=True, use_reloader=False)
+    app.run(host='0.0.0.0',port=800,debug=True)
